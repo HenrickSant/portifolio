@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, useRef } from "react";
 
 const NAV_LINKS = ["Início", "Sobre", "Stack", "Projetos", "Contato"];
