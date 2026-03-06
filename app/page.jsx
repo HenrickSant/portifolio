@@ -196,6 +196,30 @@ export default function Portfolio() {
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
         @keyframes grain { 0%,100%{transform:translate(0,0)} 10%{transform:translate(-2%,-3%)} 30%{transform:translate(3%,-1%)} 50%{transform:translate(-1%,4%)} 70%{transform:translate(2%,2%)} 90%{transform:translate(-3%,1%)} }
         .grain::before { content:''; position:fixed; inset:-50%; width:200%; height:200%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:.03; animation: grain 8s steps(10) infinite; pointer-events:none; z-index:9998; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+          body { cursor: auto !important; }
+          .nav-links { display: none !important; }
+          .nav-cta { font-size: 11px !important; padding: 6px 12px !important; }
+          .hero-section { padding: 88px 1.5rem 48px !important; min-height: auto !important; }
+          .hero-title { font-size: 3rem !important; letter-spacing: -1px !important; }
+          .hero-sub { font-size: 0.95rem !important; }
+          .hero-btns { flex-direction: column !important; }
+          .hero-btns button { width: 100% !important; text-align: center !important; }
+          .metrics-grid { grid-template-columns: 1fr 1fr !important; }
+          .about-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .about-pillars { grid-template-columns: 1fr 1fr !important; }
+          .section-pad { padding: 64px 1.5rem !important; }
+          .project-card-grid { grid-template-columns: 1fr !important; }
+          .project-img-col { border-left: none !important; border-top: 1px solid var(--border) !important; min-height: 200px !important; }
+          .stack-grid { gap: 28px !important; }
+        }
+        @media (max-width: 480px) {
+          .hero-title { font-size: 2.4rem !important; }
+          .about-pillars { grid-template-columns: 1fr !important; }
+          .metrics-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
 
       <div className="grain" />
@@ -210,7 +234,7 @@ export default function Portfolio() {
         padding: "0 clamp(1.5rem,5vw,4rem)", height: 64,
       }}>
         <span className="mono" style={{ color: "var(--accent)", fontSize: 14, letterSpacing: 2 }}>CS<span style={{ color: "var(--muted)" }}>.dev</span></span>
-        <div style={{ display: "flex", gap: 8 }}>
+        <div className="nav-links" style={{ display: "flex", gap: 8 }}>
           {NAV_LINKS.map(l => (
             <button key={l} data-hover onClick={() => scrollTo(l === "Início" ? "inicio" : l === "Sobre" ? "sobre" : l === "Stack" ? "stack" : l === "Projetos" ? "projetos" : "contato")}
               style={{
@@ -222,7 +246,7 @@ export default function Portfolio() {
               }}>{l}</button>
           ))}
         </div>
-        <a data-hover href="mailto:cauahenrick@proton.me"
+        <a data-hover href="mailto:cauahenrick@proton.me" className="nav-cta"
           style={{
             fontFamily: "Space Mono", fontSize: 12, color: "var(--bg)", background: "var(--accent)",
             padding: "8px 18px", borderRadius: 6, textDecoration: "none", fontWeight: 700, letterSpacing: 1,
@@ -231,7 +255,7 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO */}
-      <section id="inicio" ref={heroRef} style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "100px clamp(1.5rem,10vw,10rem) 60px", position: "relative", overflow: "hidden" }}>
+      <section id="inicio" ref={heroRef} className="hero-section" style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "100px clamp(1.5rem,10vw,10rem) 60px", position: "relative", overflow: "hidden" }}>
         {/* BG blobs */}
         <div style={{ position: "absolute", top: "15%", left: "60%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,255,200,.06) 0%, transparent 70%)", pointerEvents: "none" }} />
         <div style={{ position: "absolute", bottom: "10%", right: "5%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,106,247,.08) 0%, transparent 70%)", pointerEvents: "none" }} />
@@ -241,7 +265,7 @@ export default function Portfolio() {
             <span style={{ animationName: "blink", animationDuration: "1s", animationIterationCount: "infinite", display: "inline-block", width: 8, height: 14, background: "var(--accent)", marginRight: 8, verticalAlign: "middle" }} />
             Disponível para projetos
           </p>
-          <h1 className={`fade-up stagger-1 ${heroIn ? "in" : ""}`} style={{ fontSize: "clamp(2.8rem,7vw,5.5rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: -2, marginBottom: 24 }}>
+          <h1 className={`hero-title fade-up stagger-1 ${heroIn ? "in" : ""}`} style={{ fontSize: "clamp(2.8rem,7vw,5.5rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: -2, marginBottom: 24 }}>
             Cauã<br />
             <span>Santos</span>
           </h1>
@@ -249,10 +273,10 @@ export default function Portfolio() {
             <div style={{ width: 40, height: 2, background: "var(--accent)" }} />
             <span style={{ color: "var(--accent)", fontWeight: 700, fontSize: 16, letterSpacing: 1 }}>Especialista em Automação & IA</span>
           </div>
-          <p className={`fade-up stagger-3 ${heroIn ? "in" : ""}`} style={{ color: "var(--muted)", fontSize: "clamp(1rem,1.5vw,1.15rem)", lineHeight: 1.8, maxWidth: 580, marginBottom: 40 }}>
+          <p className={`hero-sub fade-up stagger-3 ${heroIn ? "in" : ""}`} style={{ color: "var(--muted)", fontSize: "clamp(1rem,1.5vw,1.15rem)", lineHeight: 1.8, maxWidth: 580, marginBottom: 40 }}>
             Transformo processos manuais e repetitivos em <strong style={{ color: "var(--text)" }}>automações</strong> — unindo automação low-code, modelos de IA e análise de dados para gerar eficiência mensurável.
           </p>
-          <div className={`fade-up stagger-4 ${heroIn ? "in" : ""}`} style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+          <div className={`hero-btns fade-up stagger-4 ${heroIn ? "in" : ""}`} style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             <button data-hover onClick={() => scrollTo("projetos")} style={{
               background: "var(--accent)", color: "var(--bg)", fontFamily: "Space Mono", fontSize: 13,
               fontWeight: 700, padding: "14px 28px", border: "none", borderRadius: 8, cursor: "none", letterSpacing: 1,
@@ -267,7 +291,7 @@ export default function Portfolio() {
 
       {/* METRICS */}
       <section ref={metricsRef} style={{ padding: "60px clamp(1.5rem,10vw,10rem)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 2 }}>
+        <div className="metrics-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 2 }}>
           {METRICS.map((m, i) => (
             <div key={i} style={{ padding: "32px 24px", background: i % 2 === 0 ? "var(--surface)" : "var(--surface2)", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ color: "var(--accent)", fontWeight: 700, fontSize: "clamp(0.95rem,1.5vw,1.1rem)", lineHeight: 1.4, letterSpacing: 0.5 }}>{m.label}</div>
@@ -277,12 +301,12 @@ export default function Portfolio() {
       </section>
 
       {/* ABOUT ME */}
-      <section id="sobre" style={{ padding: "100px clamp(1.5rem,10vw,10rem)", background: "var(--bg)" }}>
+      <section id="sobre" className="section-pad" style={{ padding: "100px clamp(1.5rem,10vw,10rem)", background: "var(--bg)" }}>
         <AboutMe />
       </section>
 
       {/* STACK */}
-      <section id="stack" style={{ padding: "100px clamp(1.5rem,10vw,10rem)" }}>
+      <section id="stack" className="section-pad stack-grid" style={{ padding: "100px clamp(1.5rem,10vw,10rem)" }}>
         <SectionLabel label="Skills · Techs" />
         <h2 style={{ fontSize: "clamp(1.8rem,4vw,3rem)", fontWeight: 800, marginBottom: 60, letterSpacing: -1 }}>Stack</h2>
         <div style={{ display: "grid", gap: 48 }}>
@@ -315,7 +339,7 @@ export default function Portfolio() {
       </section>
 
       {/* PROJECTS */}
-      <section id="projetos" style={{ padding: "100px clamp(1.5rem,10vw,10rem)", background: "var(--surface)" }}>
+      <section id="projetos" className="section-pad" style={{ padding: "100px clamp(1.5rem,10vw,10rem)", background: "var(--surface)" }}>
         <SectionLabel label="Case Studies · Projects" />
         <h2 style={{ fontSize: "clamp(1.8rem,4vw,3rem)", fontWeight: 800, marginBottom: 60, letterSpacing: -1 }}>Projetos</h2>
         <div style={{ display: "grid", gap: 24 }}>
@@ -326,7 +350,7 @@ export default function Portfolio() {
       </section>
 
       {/* CONTACT */}
-      <section id="contato" style={{ padding: "100px clamp(1.5rem,10vw,10rem)", textAlign: "center", position: "relative", overflow: "hidden" }}>
+      <section id="contato" className="section-pad" style={{ padding: "100px clamp(1.5rem,10vw,10rem)", textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,255,200,.04) 0%, transparent 70%)", pointerEvents: "none" }} />
         <SectionLabel label="Connect · Contact" center />
         <h2 style={{ fontSize: "clamp(2rem,5vw,4rem)", fontWeight: 800, letterSpacing: -2, marginBottom: 16 }}>
@@ -396,7 +420,7 @@ function AboutMe() {
   return (
     <div ref={ref}>
       <SectionLabel label="Profile · About" />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px 80px", alignItems: "start" }}>
+      <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px 80px", alignItems: "start" }}>
         {/* LEFT: text */}
         <div className={`fade-up ${inView ? "in" : ""}`}>
           <h2 style={{ fontSize: "clamp(1.8rem,4vw,3rem)", fontWeight: 800, letterSpacing: -1, marginBottom: 32, lineHeight: 1.1 }}>
@@ -420,7 +444,7 @@ function AboutMe() {
         </div>
 
         {/* RIGHT: pillars */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        <div className="about-pillars" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
           {pillars.map((p, i) => (
             <div key={i} className={`fade-up ${inView ? "in" : ""}`}
               style={{
@@ -460,7 +484,7 @@ function ProjectCard({ proj }) {
       onMouseEnter={e => { e.currentTarget.style.borderColor = proj.color; e.currentTarget.style.transform = "translateY(-2px)"; }}
       onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.transform = "none"; }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: imgs.length ? "1fr 1fr" : "1fr", gap: 0 }}>
+      <div className="project-card-grid" style={{ display: "grid", gridTemplateColumns: imgs.length ? "1fr 1fr" : "1fr", gap: 0 }}>
         {/* LEFT: info */}
         <div style={{ padding: "28px 28px 24px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           <div>
@@ -485,7 +509,7 @@ function ProjectCard({ proj }) {
         </div>
         {/* RIGHT: images */}
         {imgs.length > 0 && (
-          <div style={{ borderLeft: "1px solid var(--border)", background: "var(--surface2)", display: "flex", flexDirection: "column" }}>
+          <div className="project-img-col" style={{ borderLeft: "1px solid var(--border)", background: "var(--surface2)", display: "flex", flexDirection: "column" }}>
             <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
               <img
                 src={IMAGES[imgs[activeImg]]}
